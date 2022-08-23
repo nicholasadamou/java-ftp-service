@@ -1,0 +1,33 @@
+version: '3.8'
+services:
+  ftp-service:
+    build:
+      context: .
+      args:
+        MAVEN_USERNAME: ${MAVEN_USERNAME}
+        MAVEN_PASSWORD: ${MAVEN_PASSWORD}
+        TRUSTSTORE: ${TRUSTSTORE}
+        KEYSTORE: ${KEYSTORE}
+        SSH_HOST: ${SSH_HOST}
+        ID_RSA: ${ID_RSA}
+        ID_RSA_PUB: ${ID_RSA_PUB}
+    image: nicholasadamou/ftp-service:latest
+    environment:
+      CORS_ALLOWED_ORIGINS: ${CORS_ALLOWED_ORIGINS}
+      KEYSTORE_PASSWORD: ${KEYSTORE_PASSWORD}
+      TRUSTSTORE_PASSWORD: ${TRUSTSTORE_PASSWORD}
+      SSH_HOST: ${SSH_HOST}
+      SSH_USERNAME: ${SSH_USERNAME}
+      SSH_PASSWORD: ${SSH_PASSWORD}
+      SSH_DESTINATION_FOLDER: ${SSH_DESTINATION_FOLDER}
+      JAVA_TOOL_OPTIONS: ${JAVA_TOOL_OPTIONS}
+    container_name: upload-service
+    ports:
+      - "86:8080"
+    networks:
+        - default
+networks:
+  default:
+    external: true
+
+
