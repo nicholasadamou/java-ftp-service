@@ -38,9 +38,15 @@ public class FTPController {
 		try {
 			final SSHClient sshClient = utils.getSSHClient();
 
-			sshClient.loadKnownHosts();
-
 			File sshDir = OpenSSHKnownHosts.detectSSHDir();
+
+			if (sshDir == null) {
+				sshDir = new File("/", ".ssh");
+			}
+
+			File knownHosts = new File(sshDir, "known_hosts");
+
+			sshClient.loadKnownHosts(knownHosts);
 
 			File privateKey = new File(sshDir, "id_rsa");
 
